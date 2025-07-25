@@ -21,6 +21,9 @@ def load_theme_mapping(path='themes.yml'):
 
 def categorize_themes(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
     df = df.copy()
+    if df.empty or 'body' not in df.columns:
+        df['theme'] = pd.Series(dtype=object)
+        return df
     themes = []
     for body in df['body'].fillna(''):
         found = None
@@ -38,21 +41,33 @@ def detect_sales(df: pd.DataFrame, keywords_path='sales_keywords.yml') -> pd.Dat
     with open(keywords_path) as f:
         kws = [k.lower() for k in yaml.safe_load(f)]
     df = df.copy()
-    df['is_sales'] = df['tags'].apply(lambda tags: bool(set(tags) & {'sales'}))
+    if df.empty:
+        df['is_sales'] = pd.Series(dtype=bool)
+        return df
+    tags_col = df['tags'] if 'tags' in df.columns else pd.Series([[]]*len(df))
+    df['is_sales'] = tags_col.apply(lambda tags: bool(set(tags) & {'sales'}))
     def kw_match(text):
-        t = text.lower()
+        t = str(text).lower()
         return any(kw in t for kw in kws)
-    df.loc[~df['is_sales'], 'is_sales'] = df['body'].fillna('').apply(kw_match)
+    if 'body' in df.columns:
+        df.loc[~df['is_sales'], 'is_sales'] = df['body'].fillna('').apply(kw_match)
     return df
 
 
 def build_dash(server):
     df = load_conversations()
+    if df.empty:
+        df = pd.DataFrame(columns=['id', 'created_at', 'updated_at', 'assignee_id',
+                                   'assignee_name', 'tags', 'subject', 'body',
+                                   'conversation_url'])
     mapping = load_theme_mapping()
     df = categorize_themes(df, mapping)
     df = detect_sales(df)
 
-    volume = df.groupby(df['created_at'].dt.date).size().reset_index(name='count')
+    if 'created_at' in df.columns and not df.empty:
+        volume = df.groupby(df['created_at'].dt.date).size().reset_index(name='count')
+    else:
+        volume = pd.DataFrame({'created_at': [], 'count': []})
     fig_volume = px.line(volume, x='created_at', y='count', title='Conversations per day')
 
     sales_share = df['is_sales'].mean()*100 if not df.empty else 0
@@ -68,11 +83,16 @@ def build_dash(server):
                 dcc.Graph(figure=fig_volume)
             ]),
             dcc.Tab(label='Themes', children=[
-                dcc.Graph(figure=px.bar(df, x='theme', y=None, title='Theme counts')),
+                dcc.Graph(figure=px.bar(
+                    df['theme'].value_counts().reset_index(name='count') if ('theme' in df.columns and not df.empty) else
+                    pd.DataFrame({'theme': [], 'count': []}),
+                    x='theme', y='count', title='Theme counts')),
             ]),
             dcc.Tab(label='Team', children=[
-                dash_table.DataTable(data=df.groupby(['assignee_name']).size().reset_index(name='count').to_dict('records'),
-                                     columns=[{'name':'Assignee','id':'assignee_name'}, {'name':'Conversations','id':'count'}])
+                dash_table.DataTable(
+                    data=(df.groupby(['assignee_name']).size().reset_index(name='count').to_dict('records')
+                          if ('assignee_name' in df.columns and not df.empty) else []),
+                    columns=[{'name':'Assignee','id':'assignee_name'}, {'name':'Conversations','id':'count'}])
             ]),
             dcc.Tab(label='Drill-down', children=[
                 dash_table.DataTable(
