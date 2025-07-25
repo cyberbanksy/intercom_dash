@@ -1,0 +1,11 @@
+Flask
+Dash
+plotly
+pandas
+SQLAlchemy
+requests
+python-dotenv
+apscheduler
+pyyaml
+openai
+pytest
