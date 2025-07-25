@@ -1,0 +1,4 @@
+bug: ["error", "bug", "issue"]
+billing: ["invoice", "payment", "billing"]
+feature request: ["feature", "request", "improvement"]
+sales: ["pricing", "quote", "purchase"]
