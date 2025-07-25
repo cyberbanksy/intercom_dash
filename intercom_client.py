@@ -4,6 +4,9 @@ from datetime import datetime, timedelta
 from typing import Generator, Dict, Any
 
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_URL = 'https://api.intercom.io'
 TOKEN = os.getenv('INTERCOM_TOKEN')

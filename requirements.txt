@@ -9,3 +9,4 @@ apscheduler
 pyyaml
 openai
 pytest
+gunicorn

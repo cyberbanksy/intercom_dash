@@ -1,4 +1,5 @@
 """ETL utilities for Intercom Insights."""
+import argparse
 import pandas as pd
 from typing import List, Dict, Any
 
@@ -45,3 +46,12 @@ def load_conversations() -> pd.DataFrame:
     session.close()
     data = [flatten(r.data) for r in rows]
     return pd.DataFrame(data)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Fetch Intercom conversations')
+    parser.add_argument('--months', type=int, default=12,
+                        help='Number of months back to fetch')
+    args = parser.parse_args()
+    count = sync_conversations(args.months)
+    print(f"Fetched {count} conversations")
