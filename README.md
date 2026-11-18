@@ -26,3 +26,17 @@ pytest
 ```
 
 The app schedules a nightly job to refresh Intercom data.
+
+## Releases
+
+[![CI](https://github.com/cyberbanksy/intercom_dash/actions/workflows/ci.yml/badge.svg)](https://github.com/cyberbanksy/intercom_dash/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/cyberbanksy/intercom_dash?include_prereleases&sort=semver)](https://github.com/cyberbanksy/intercom_dash/releases)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/cyberbanksy/intercom_dash/badge)](https://scorecard.dev/viewer/?uri=github.com/cyberbanksy/intercom_dash)
+
+Changes are recorded in [CHANGELOG.md](CHANGELOG.md) and tagged `vX.Y.Z` with
+[Semantic Versioning](https://semver.org/). There are no prebuilt downloads; run it from source (see above).
+
+- **Cadence:** changes ship when they are ready, with at least one maintenance pass a month while the project
+  is in active development. Security fixes ship within 7 days of a confirmed report.
+- **Support:** only the latest version on `main` gets fixes.
+
