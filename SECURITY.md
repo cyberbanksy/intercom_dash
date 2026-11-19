@@ -1,5 +1,14 @@
 # Security policy
 
-Please don't report vulnerabilities in public issues. Use **Report a vulnerability** on this repository's Security tab. If that button isn't there, open an issue asking for a private contact, without details.
+## Supported versions
 
-Include the affected file or feature, steps to reproduce, and impact. Expect a reply within a week.
+Only the latest release and the `main` branch get security fixes.
+
+## Reporting a vulnerability
+
+Please don't report vulnerabilities in public issues. Report them privately through
+[private vulnerability reporting](https://github.com/cyberbanksy/intercom_dash/security/advisories/new), or open a blank issue asking for a private contact, without details.
+
+Include the affected version or file, steps to reproduce, and the impact. You should get a reply within 7 days.
+Fixes ship within 7 days of a confirmed report, and the advisory is published with credit unless you'd rather
+stay anonymous.
