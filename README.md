@@ -1,6 +1,19 @@
+<div align="center">
+
 # Intercom Insights
 
-A Flask and Plotly Dash dashboard for analysing Intercom conversations.
+**A Flask and Plotly Dash dashboard for analysing Intercom conversations.**
+
+[![CI](https://img.shields.io/github/actions/workflow/status/cyberbanksy/intercom_dash/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/cyberbanksy/intercom_dash/actions/workflows/ci.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/cyberbanksy/intercom_dash/badge)](https://scorecard.dev/viewer/?uri=github.com/cyberbanksy/intercom_dash)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2ea44f?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3-3776ab?style=flat-square&logo=python&logoColor=white)](requirements.txt)
+
+[Setup](#setup) · [Testing](#testing) · [Releases](#releases)
+
+</div>
+
+---
 
 ## Setup
 
@@ -29,10 +42,6 @@ The app schedules a nightly job to refresh Intercom data.
 
 ## Releases
 
-[![CI](https://github.com/cyberbanksy/intercom_dash/actions/workflows/ci.yml/badge.svg)](https://github.com/cyberbanksy/intercom_dash/actions/workflows/ci.yml)
-[![Latest release](https://img.shields.io/github/v/release/cyberbanksy/intercom_dash?include_prereleases&sort=semver)](https://github.com/cyberbanksy/intercom_dash/releases)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/cyberbanksy/intercom_dash/badge)](https://scorecard.dev/viewer/?uri=github.com/cyberbanksy/intercom_dash)
-
 Changes are recorded in [CHANGELOG.md](CHANGELOG.md) and tagged `vX.Y.Z` with
 [Semantic Versioning](https://semver.org/). There are no prebuilt downloads; run it from source (see above).
 
@@ -40,3 +49,6 @@ Changes are recorded in [CHANGELOG.md](CHANGELOG.md) and tagged `vX.Y.Z` with
   is in active development. Security fixes ship within 7 days of a confirmed report.
 - **Support:** only the latest version on `main` gets fixes.
 
+## License
+
+MIT, see [LICENSE](LICENSE).
